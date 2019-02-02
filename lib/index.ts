@@ -45,10 +45,10 @@ export abstract class RMQController {
         const connectionURLs: string[] = this.options.connections.map((connection: IRMQConnection) => {
             return `amqp://${connection.login}:${connection.password}@${connection.host}`;
         });
-        const connectionOptins = {
+        const connectionOptions = {
             reconnectTimeInSeconds: this.options.reconnectTimeInSeconds ? this.options.reconnectTimeInSeconds : RECONNECT_TIME,
         };
-        this.server = amqp.connect(connectionURLs, connectionOptins);
+        this.server = amqp.connect(connectionURLs, connectionOptions);
         this.channel = this.server.createChannel({
             json: false,
             setup: async (channel: Channel) => {
